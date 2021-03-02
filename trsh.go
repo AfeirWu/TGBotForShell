@@ -87,17 +87,19 @@ func main() {
                 }
                 if len(words) == 2 {
                     cmd_clean:=words[1]
-                    output=exec_shell("docker exec -i jd /bin/sh -c 'bash jd "+cmd_clean+" now'")
+                    if cmd_clean == "hangup" || cmd_clean == "resetpwd" {
+                        output=exec_shell("docker exec -i jd /bin/sh -c 'bash jd "+cmd_clean+"'")
+                    } else {
+                        output=exec_shell("docker exec -i jd /bin/sh -c 'bash jd "+cmd_clean+" now'")
+                    }
                 }
             }
             if strings.Contains(update.Message.Text,"/git_pull") {
+                cmd_raw:=update.Message.Text
+                words := strings.Fields(cmd_raw)
                 if len(words) == 1 {
                     output=exec_shell("docker exec -i jd /bin/sh -c 'bash git_pull.sh'")
                 }
-            }
-
-            if update.Message.Text == "/help" {
-                output="用法: \n/jd 脚本名称 - 手动运行jd脚本"
             }
         }
         // telegramBot发送文本消息最大支持4096字节，所以发送文件
