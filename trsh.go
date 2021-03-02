@@ -79,22 +79,6 @@ func main() {
 
         if strings.Contains(chat_id , tgbot_chatid) {
             output = "无效命令！"
-            if strings.Contains(update.Message.Text,"/sh") {
-                cmd_raw:=update.Message.Text
-                words := strings.Fields(cmd_raw)
-                if len(words) == 1 {
-                    output = "请输入要执行的命令!"
-                }
-                if len(words) >= 2 {
-                    cmd_clean:=  strings.Replace(cmd_raw, "/sh", "", 1)
-                    output=exec_shell(cmd_clean)
-                }
-            }
-
-            if strings.Contains(update.Message.Text,"/sysinfo") {
-                output=exec_shell("df -h && free -m && netstat -tunlp")
-            }
-
             if strings.Contains(update.Message.Text,"/jd") {
                 cmd_raw:=update.Message.Text
                 words := strings.Fields(cmd_raw)
@@ -106,9 +90,14 @@ func main() {
                     output=exec_shell("docker exec -i jd /bin/sh -c 'bash jd "+cmd_clean+" now'")
                 }
             }
+            if strings.Contains(update.Message.Text,"/git_pull") {
+                if len(words) == 1 {
+                    output=exec_shell("docker exec -i jd /bin/sh -c 'bash git_pull.sh'")
+                }
+            }
 
             if update.Message.Text == "/help" {
-                output="用法: \n/jd 脚本名称 - 手动运行jd脚本 \n/sysinfo - 查看服务器运行状态 \n/sh shell命令内容 - 在服务器上执行shell命令"
+                output="用法: \n/jd 脚本名称 - 手动运行jd脚本"
             }
         }
         // telegramBot发送文本消息最大支持4096字节，所以发送文件
