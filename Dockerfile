@@ -6,8 +6,6 @@ RUN go get -u "gopkg.in/telegram-bot-api.v4" \
 FROM scratch
 COPY --from=0 /go/trsh .
 COPY --from=0 /bin/sh /bin/sh
-COPY --from=0 /lib /lib
-COPY --from=0 /lib64 /lib64
 COPY --from=0 /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 COPY --from=0 /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 ENTRYPOINT ["./trsh"]
