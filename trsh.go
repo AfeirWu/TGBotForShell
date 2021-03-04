@@ -33,8 +33,8 @@ func removeCharacters(input string, characters string) string {
 
 
 func exec_shell(command string) string {
-    log.Println("/bin/bash -c",command)
-    out, err := exec.Command("/bin/bash","-c",command).Output()
+    log.Println("/bin/sh -c",command)
+    out, err := exec.Command("/bin/sh","-c",command).Output()
     checkErr(err)
     return string(out)
 }
