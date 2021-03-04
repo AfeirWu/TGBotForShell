@@ -9,6 +9,5 @@ COPY --from=0 /bin/sh /bin/sh
 COPY --from=0 /bin/mkdir /bin/mkdir
 COPY --from=0 /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 COPY --from=0 /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
-RUN mkdir /lib64 \
-    && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
+COPY --from=0 /lib64/ld-linux-x86-64.so.2 /lib64/ld-linux-x86-64.so.2
 ENTRYPOINT ["./trsh"]
