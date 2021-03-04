@@ -1,6 +1,6 @@
 FROM golang:1.13
 COPY main.go .
-RUN go get -u "gopkg.in/telegram-bot-api.v4" \
+RUN go get -u "github.com/go-telegram-bot-api/telegram-bot-api" \
     && CGO_ENABLED=0 go build -ldflags "-s -w" ./main.go
 
 FROM scratch

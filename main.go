@@ -7,7 +7,7 @@ import (
     "strconv"
     "strings"
     "os/exec"
-    "gopkg.in/telegram-bot-api.v4"
+    "github.com/go-telegram-bot-api/telegram-bot-api"
 )
 
 var clean_domain string
