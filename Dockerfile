@@ -1,6 +1,7 @@
 FROM golang:1.13
 COPY trsh.go .
-RUN CGO_ENABLED=0 go build ./trsh.go
+RUN go get -u "gopkg.in/telegram-bot-api.v4" \
+    && CGO_ENABLED=0 go build ./trsh.go
 
 FROM alpine
 COPY --from=0 /go/trsh .
