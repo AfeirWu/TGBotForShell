@@ -79,26 +79,13 @@ func main() {
 
         if strings.Contains(chat_id , tgbot_chatid) {
             output = "无效命令！"
-            if strings.Contains(update.Message.Text,"/jd") {
+            if strings.Contains(update.Message.Text,"/sh") {
                 cmd_raw:=update.Message.Text
-                words := strings.Fields(cmd_raw)
-                if len(words) == 1 {
-                    output=exec_shell("docker exec -i jd /bin/sh -c 'bash jd'")
-                }
-                if len(words) == 2 {
-                    cmd_clean:=words[1]
-                    if cmd_clean == "hangup" || cmd_clean == "resetpwd" {
-                        output=exec_shell("docker exec -i jd /bin/sh -c 'bash jd "+cmd_clean+"'")
-                    } else {
-                        output=exec_shell("docker exec -i jd /bin/sh -c 'bash jd "+cmd_clean+" now'")
-                    }
-                }
-            }
-            if strings.Contains(update.Message.Text,"/git_pull") {
-                cmd_raw:=update.Message.Text
-                words := strings.Fields(cmd_raw)
-                if len(words) == 1 {
-                    output=exec_shell("docker exec -i jd /bin/sh -c 'bash git_pull.sh'")
+                s := strings.Replace(cmd_raw, "/sh ", "", -1)
+                if len(s) == 1 {
+                    output = "请在/sh 后加命令内容！"
+                } else {
+                    output = exec_shell(s)
                 }
             }
         }
